@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class PreOrderServiceImpl implements PreOrderService {
 
     @Resource
-    private RedisService redisService;
+    private RedisService stringRedisService;
 
     @Resource
     private GoodsService goodsService;
