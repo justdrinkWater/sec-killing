@@ -1,13 +1,7 @@
 package com.siwen.seckilling.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -19,11 +13,8 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 public class JedisConfiguration {
 
-    @Autowired
-    com.siwen.seckilling.config.JedisPoolConfig redisConfig;
-
     @Bean
-    public JedisPool jedisPool() {
+    public JedisPool jedisPool(com.siwen.seckilling.config.JedisPoolConfig redisConfig) {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(redisConfig.getMaxIdle());
         poolConfig.setMaxTotal(redisConfig.getMaxActive());

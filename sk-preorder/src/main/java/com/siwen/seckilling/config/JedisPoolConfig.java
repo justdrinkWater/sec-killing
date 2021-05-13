@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @Component
-@ConfigurationProperties(prefix = "reids")
+@ConfigurationProperties(prefix = "redis")
 public class JedisPoolConfig {
     private String ip;
     private int port;
@@ -24,4 +24,6 @@ public class JedisPoolConfig {
     private int maxWait;//秒
     private boolean testOnBorrow;
     private boolean testOnReturn;
+
+
 }

@@ -1,0 +1,11 @@
+#redis连接配置
+redis:
+  ip: localhost
+  port: 6379
+  password: redis
+  timeout: 3000
+  maxActive: 20
+  maxIdle: 8
+  maxWait: 1000
+  testOnBorrow: true
+  testOnReturn: true

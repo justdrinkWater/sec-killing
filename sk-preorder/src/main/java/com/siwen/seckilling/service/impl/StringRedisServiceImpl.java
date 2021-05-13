@@ -3,6 +3,7 @@ package com.siwen.seckilling.service.impl;
 import com.siwen.seckilling.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -16,7 +17,7 @@ import java.io.ObjectOutputStream;
  * @description redis 服务实现类
  * @date 2021/05/12 21:34
  **/
-@Resource(name = "stringRedisService")
+@Service("stringRedisService")
 public class StringRedisServiceImpl implements RedisService<String, Object> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
