@@ -1,6 +1,6 @@
 package com.siwen.seckilling.service;
 
-import com.siwen.domain.Goods;
+import com.siwen.seckilling.bean.PreOrder;
 
 /**
  * @Author siwen
@@ -10,12 +10,11 @@ import com.siwen.domain.Goods;
 public interface PreOrderService {
 
     /**
-     * @return 商品
      * @author siwen
      * @date 2021/5/12 17:22
-     * @description 检查该用户是否已购买
+     * @description 检查该用户是否已秒杀到商品
      */
-    Goods getOrderByUserIdGoodsId(Long userId, String goodsId);
+    PreOrder getOrderByUserIdGoodsId(Long userId, String goodsId);
 
     /**
      * @return boolean 预下单是否成功

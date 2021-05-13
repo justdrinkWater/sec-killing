@@ -23,7 +23,8 @@ public enum ResultStatus {
 
 
     SALE_OVER(30001, "秒杀已结束"),
-    REPEAT_SEC_KILLING(30002, "已抢到，请勿重复秒杀");
+    REPEAT_SEC_KILLING(30002, "已抢到，请勿重复秒杀"),
+    SEC_KILLING_FAIL(30003, "秒杀失败");
 
     /**
      * 商品模块

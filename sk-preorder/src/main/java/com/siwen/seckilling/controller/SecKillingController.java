@@ -41,7 +41,7 @@ public class SecKillingController {
     public Result<Boolean> secKilling(User user, @RequestParam("goodsId") String goodsId) {
         Result<Boolean> result = Result.buildSuccess();
         //校验参数是否正确
-        if (Objects.isNull(user) || StringUtils.isEmpty(goodsId)) {
+        if (Objects.isNull(user) || StringUtils.isEmpty(user.getId()) || StringUtils.isEmpty(goodsId)) {
             result.setResultStatus(ResultStatus.PARAM_EXCEPTION);
             return result;
         }

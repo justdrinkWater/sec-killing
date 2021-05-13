@@ -1,7 +1,7 @@
 package com.siwen.seckilling.service.impl;
 
-import com.siwen.domain.Goods;
 import com.siwen.domain.User;
+import com.siwen.seckilling.bean.PreOrder;
 import com.siwen.seckilling.constant.ResultStatus;
 import com.siwen.seckilling.service.GoodsService;
 import com.siwen.seckilling.service.PreOrderService;
@@ -30,8 +30,8 @@ public class SecKillingServiceImpl implements SecKillingService {
     @Override
     public Result<Boolean> doSecKilling(User user, String goodsId) {
         // 校验是否已经秒杀到了
-        Goods goods = preOrderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
-        if (Objects.nonNull(goods)) {
+        PreOrder preOrder = preOrderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
+        if (Objects.nonNull(preOrder)) {
             return Result.build(ResultStatus.REPEAT_SEC_KILLING);
         }
 
@@ -44,8 +44,12 @@ public class SecKillingServiceImpl implements SecKillingService {
         //预减库存
         Result<Boolean> result = Result.buildSuccess();
         boolean flag = preOrderService.preOrder(user.getId(), goodsId);
+        if (!flag) {
+            result = Result.build(ResultStatus.SEC_KILLING_FAIL);
+        }
         result.setData(flag);
-
         return result;
     }
+
+
 }

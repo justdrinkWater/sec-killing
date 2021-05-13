@@ -19,6 +19,7 @@
         <module>sk-preorder</module>
         <module>sk-order</module>
         <module>sk-domain</module>
+        <module>sk-user</module>
     </modules>
 
     <name>sec-killing</name>
@@ -27,6 +28,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <sec-killing.version>1.0-SNAPSHOT</sec-killing.version>
+        <jedis.version>3.3.0</jedis.version>
+        <fastjson.version>1.2.75</fastjson.version>
     </properties>
 
 
@@ -36,6 +39,16 @@
                 <groupId>com.siwen</groupId>
                 <artifactId>sk-domain</artifactId>
                 <version>${sec-killing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -49,7 +62,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.2</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
