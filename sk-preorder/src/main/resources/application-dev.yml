@@ -1,6 +1,6 @@
 #redis连接配置
 redis:
-  ip: 192.168.100.1
+  ip: 192.168.0.106
   port: 6379
   password: redis
   timeout: 3000
