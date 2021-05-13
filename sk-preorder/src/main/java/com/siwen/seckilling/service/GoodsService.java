@@ -29,4 +29,25 @@ public interface GoodsService {
      * @description 取消秒杀结束
      */
     boolean cancelSaleOver(String goodsId);
+
+    /**
+     * @author siwen
+     * @date 2021/5/13 16:55
+     * @description 获取库存
+     */
+    int getStock(String goodsId);
+
+    /**
+     * @author siwen
+     * @date 2021/5/13 16:55
+     * @description 减库存
+     */
+    long decrStock(String goodsId);
+
+    /**
+     * @author siwen
+     * @date 2021/5/13 17:04
+     * @description 设置商品库存
+     */
+    boolean setStock(String goodsId, int stock);
 }

@@ -4,6 +4,7 @@ import com.siwen.seckilling.constant.RedisConstant;
 import com.siwen.seckilling.service.GoodsService;
 import com.siwen.seckilling.service.RedisService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -37,5 +38,24 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public boolean cancelSaleOver(String goodsId) {
         return stringRedisService.hDel(RedisConstant.GOODS_SALE_OVER, goodsId);
+    }
+
+    @Override
+    public int getStock(String goodsId) {
+        String stock = stringRedisService.hGet(RedisConstant.GOODS_STOCK, goodsId);
+        if (!StringUtils.isEmpty(stock)) {
+            return Integer.parseInt(stock);
+        }
+        return 0;
+    }
+
+    @Override
+    public long decrStock(String goodsId) {
+        return stringRedisService.hDecr(RedisConstant.GOODS_STOCK, goodsId);
+    }
+
+    @Override
+    public boolean setStock(String goodsId, int stock) {
+        return stringRedisService.hSet(RedisConstant.GOODS_STOCK, goodsId, stock);
     }
 }

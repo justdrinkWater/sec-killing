@@ -38,15 +38,19 @@ public class PreOrderServiceImpl implements PreOrderService {
     @Transactional
     @Override
     public boolean preOrder(Long userId, String goodsId) {
+        int preStock = goodsService.getStock(goodsId);
+        if (preStock <= 0) {
+            return false;
+        }
         //扣库存
-        long stock = stringRedisService.hDecr(RedisConstant.GOODS_STOCK, goodsId);
-        //扣减之后的库存  < 0，表示库存扣减失败
+        long stock = goodsService.decrStock(goodsId);
+        //可能存在并发情况，扣减之后的库存  < 0，表示库存扣减失败
         if (stock < 0) {
             return false;
         }
 
         //判断库存是否为0，更新标志位已售完
-        if (stock == 0) {
+        if (stock <= 0) {
             goodsService.setSaleOver(goodsId);
         }
 

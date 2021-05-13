@@ -1,5 +1,6 @@
 package com.siwen.seckilling.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.siwen.seckilling.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +9,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 /**
  * @author siwen
@@ -84,11 +82,10 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
-            jedis.hexists(mapKey, key);
+            return jedis.hexists(mapKey, key);
         } finally {
             returnToPool(jedis);
         }
-        return true;
     }
 
     @Override
@@ -153,25 +150,7 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
      * @description 对象序列化方法
      */
     private byte[] serialize(Object object) {
-        ObjectOutputStream oos = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] bytes = null;
-        try {
-            oos = new ObjectOutputStream(baos);
-            oos.writeObject(object);
-            bytes = baos.toByteArray();
-        } catch (IOException e) {
-            logger.error("error occur on serialized function ", e);
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return bytes;
+        return JSON.toJSONString(object).getBytes();
     }
 
     /**
