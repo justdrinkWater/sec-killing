@@ -2,6 +2,7 @@ package com.siwen.seckilling.service.impl;
 
 import com.siwen.domain.User;
 import com.siwen.seckilling.constant.ResultStatus;
+import com.siwen.seckilling.mq.RabbitMQSender;
 import com.siwen.seckilling.service.PreOrderService;
 import com.siwen.seckilling.service.SecKillingService;
 import com.siwen.seckilling.vo.Result;
@@ -23,6 +24,9 @@ public class SecKillingServiceImpl implements SecKillingService {
     @Resource
     private PreOrderService preOrderService;
 
+    @Resource
+    private RabbitMQSender sender;
+
 
     @Override
     public Result<Boolean> doSecKilling(User user, String goodsId) {
@@ -36,6 +40,7 @@ public class SecKillingServiceImpl implements SecKillingService {
             result = Result.build(ResultStatus.SALE_OVER);
         } else if (1 == flag) {
             logger.info(user.getId() + "秒杀成功");
+            sender.send(preOrderService.getOrderByUserIdGoodsId(user.getId(), goodsId));
             result = Result.buildSuccess();
             result.setData(true);
         } else if (2 == flag) {
