@@ -32,7 +32,6 @@ public class SecKillingServiceImpl implements SecKillingService {
 
     @Override
     public Result<Boolean> doSecKilling(User user, String goodsId) {
-        logger.info(user.getId() + "参与秒杀" + goodsId);
         // 校验是否已经秒杀到了
         PreOrder preOrder = preOrderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
         if (Objects.nonNull(preOrder)) {

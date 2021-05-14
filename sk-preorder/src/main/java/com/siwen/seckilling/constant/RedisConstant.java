@@ -23,5 +23,5 @@ public class RedisConstant {
     /**
      * 商品库存前缀
      */
-    public static final String GOODS_STOCK = "goods_stock";
+    public static final String PREFIX_GOODS_STOCK = "goods_stock_";
 }

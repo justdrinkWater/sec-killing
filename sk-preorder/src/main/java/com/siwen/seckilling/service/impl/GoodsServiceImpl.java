@@ -30,7 +30,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public boolean checkSaleOver(String goodsId) {
-        return stringRedisService.hexists(RedisConstant.GOODS_SALE_OVER, goodsId);
+        return stringRedisService.hExists(RedisConstant.GOODS_SALE_OVER, goodsId);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public int getStock(String goodsId) {
-        String stock = stringRedisService.hGet(RedisConstant.GOODS_STOCK, goodsId);
+        String stock = stringRedisService.get(RedisConstant.PREFIX_GOODS_STOCK + goodsId);
         if (!StringUtils.isEmpty(stock)) {
             return Integer.parseInt(stock);
         }
@@ -54,12 +54,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public long decrStock(String goodsId) {
-        return stringRedisService.hDecr(RedisConstant.GOODS_STOCK, goodsId);
+    public boolean decrStock(String goodsId) {
+        return stringRedisService.decr(RedisConstant.PREFIX_GOODS_STOCK + goodsId);
     }
 
     @Override
     public boolean setStock(String goodsId, int stock) {
-        return stringRedisService.hSet(RedisConstant.GOODS_STOCK, goodsId, stock) == 1;
+        return stringRedisService.set(RedisConstant.PREFIX_GOODS_STOCK + goodsId, stock);
     }
 }

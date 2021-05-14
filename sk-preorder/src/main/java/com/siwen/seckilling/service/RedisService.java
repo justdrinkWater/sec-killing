@@ -42,7 +42,7 @@ public interface RedisService<K, V> {
      * @date 2021/5/13 09:54
      * @description 判断hash里面是否存在响应的key
      */
-    boolean hexists(K mapKey, K key);
+    boolean hExists(K mapKey, K key);
 
 
     /**
@@ -68,10 +68,17 @@ public interface RedisService<K, V> {
     Long hIncr(K mapKey, K key);
 
     /**
+     * @author siwen
+     * @date 2021/5/14 13:29
+     * @description 减少值 -1
+     */
+    boolean decr(K key);
+
+    /**
      * @return boolean
      * @author siwen
      * @date 2021/5/13 15:25
-     * @description 减少值，-1
+     * @description hash减少值，-1
      */
     long hDecr(K mapKey, K key);
 

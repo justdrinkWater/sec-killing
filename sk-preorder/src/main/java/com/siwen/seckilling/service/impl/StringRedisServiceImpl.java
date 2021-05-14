@@ -5,8 +5,11 @@ import com.siwen.seckilling.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
 
 import javax.annotation.Resource;
 
@@ -77,7 +80,7 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
     }
 
     @Override
-    public boolean hexists(String mapKey, String key) {
+    public boolean hExists(String mapKey, String key) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -115,6 +118,24 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
         try {
             jedis = jedisPool.getResource();
             return jedis.hincrBy(mapKey, key, 1L);
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
+    @Override
+    public boolean decr(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            jedis.watch(key);// watch key
+            String result = jedis.get(key);
+            if (StringUtils.isEmpty(result) || Integer.parseInt(result) <= 0) {//获取值，如果为0，则返回失败
+                return false;
+            }
+            Transaction tx = jedis.multi();// 开启事务
+            tx.decr(key);
+            return !CollectionUtils.isEmpty(tx.exec());//提交事务，如果此时key被改动了，则返回null，否则返回非空
         } finally {
             returnToPool(jedis);
         }

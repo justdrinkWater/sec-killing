@@ -42,7 +42,7 @@ public interface GoodsService {
      * @date 2021/5/13 16:55
      * @description 减库存
      */
-    long decrStock(String goodsId);
+    boolean decrStock(String goodsId);
 
     /**
      * @author siwen
