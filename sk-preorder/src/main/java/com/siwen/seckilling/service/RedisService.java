@@ -89,5 +89,12 @@ public interface RedisService<K, V> {
      */
     boolean hDel(K mapKey, K key);
 
+    /**
+     * @author siwen
+     * @date 2021/5/14 14:28
+     * @description 执行lua脚本
+     */
+    Object execLua(String script, String... params);
+
 
 }

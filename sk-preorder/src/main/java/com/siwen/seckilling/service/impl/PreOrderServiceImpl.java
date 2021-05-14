@@ -39,38 +39,24 @@ public class PreOrderServiceImpl implements PreOrderService {
         return JSON.parseObject(orderStr, PreOrder.class);
     }
 
+    /**
+     * 0：表示已经抢光了
+     * 1: 表示抢成功了
+     * 2：表示已经抢过了
+     */
     @Transactional
     @Override
-    public boolean preOrder(Long userId, String goodsId) {
+    public int preOrder(Long userId, String goodsId) {
         //判断库存是否足够
         int preStock = goodsService.getStock(goodsId);
         if (preStock <= 0) {
-            return false;
+            return 0;
         }
 
         //先生成预订单，分布式锁，表示用户已经购买过了，否则并发情况下会产生重复购买的情况
         PreOrder preOrder = new PreOrder(userId, goodsId);
-        long result = stringRedisService.hSet(RedisConstant.PREFIX_GOODS_SECKILLING + goodsId, userId.toString(), preOrder);
-        if (result != 1) {
-            return false;
-        }
-
-        //如果result == 1则成功，再扣库存
-        boolean flag = goodsService.decrStock(goodsId);
-        //可能存在并发情况，扣减之后的库存  < 0，表示库存扣减失败
-        if (!flag) {
-            logger.info("秒杀失败");
-            //删除已经创建的预订单
-            stringRedisService.hDel(RedisConstant.PREFIX_GOODS_SECKILLING + goodsId, userId.toString());
-            return false;
-        }
-        //判断库存是否小于等于0，更新标志位已售完
-        int afterStock = goodsService.getStock(goodsId);
-        logger.info("秒杀成功");
-        if (afterStock <= 0) {
-            goodsService.setSaleOver(goodsId);
-        }
-        return true;
+        String result = goodsService.decrStockAndSavePreOrder(goodsId, userId.toString(), preOrder);
+        return Integer.parseInt(result);
     }
 
     @Transactional

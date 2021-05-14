@@ -12,6 +12,8 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author siwen
@@ -22,6 +24,9 @@ import javax.annotation.Resource;
 public class StringRedisServiceImpl implements RedisService<String, Object> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    //脚本缓存
+    public static final Map<String, String> scriptCache = new HashMap<>();
 
     @Resource
     private JedisPool jedisPool;
@@ -162,6 +167,22 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
             returnToPool(jedis);
         }
         return true;
+    }
+
+    @Override
+    public Object execLua(String script, String[] params) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            String scriptInCache = scriptCache.get(script);
+            if (StringUtils.isEmpty(scriptInCache)) {
+                scriptInCache = jedis.scriptLoad(script);
+                scriptCache.put(script, scriptInCache);
+            }
+            return jedis.evalsha(scriptInCache, params.length, params);
+        } finally {
+            returnToPool(jedis);
+        }
     }
 
     /**

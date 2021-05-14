@@ -32,26 +32,25 @@ public class SecKillingServiceImpl implements SecKillingService {
 
     @Override
     public Result<Boolean> doSecKilling(User user, String goodsId) {
-        // 校验是否已经秒杀到了
-        PreOrder preOrder = preOrderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
-        if (Objects.nonNull(preOrder)) {
-            return Result.build(ResultStatus.REPEAT_SEC_KILLING);
+        Result<Boolean> result;
+        int flag = preOrderService.preOrder(user.getId(), goodsId);
+        //      0：表示已经抢光了
+        //      1: 表示抢成功了
+        //      2：表示已经抢过了
+        if (0 == flag) {
+            logger.info(goodsId + " 抢光了");
+            result = Result.build(ResultStatus.SALE_OVER);
+        } else if (1 == flag) {
+            logger.info(user.getId() + " 抢到了");
+            result = Result.buildSuccess();
+            result.setData(true);
+        } else if (2 == flag) {
+            logger.info(user.getId() + " 重复抢了");
+            result = Result.build(ResultStatus.REPEAT_SEC_KILLING);
+        } else {
+            result = Result.build(ResultStatus.EXCEPTION);
         }
 
-        //校验是否已经卖完
-        boolean saleOverFlag = goodsService.checkSaleOver(goodsId);
-        if (saleOverFlag) {
-            logger.info(goodsId + " 已售完");
-            return Result.build(ResultStatus.SALE_OVER);
-        }
-
-        //预减库存
-        Result<Boolean> result = Result.buildSuccess();
-        boolean flag = preOrderService.preOrder(user.getId(), goodsId);
-        if (!flag) {
-            result = Result.build(ResultStatus.SEC_KILLING_FAIL);
-        }
-        result.setData(flag);
         return result;
     }
 

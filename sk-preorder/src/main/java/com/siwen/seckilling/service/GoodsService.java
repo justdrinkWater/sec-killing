@@ -1,5 +1,7 @@
 package com.siwen.seckilling.service;
 
+import com.siwen.seckilling.bean.PreOrder;
+
 /**
  * @Author siwen
  * @Date 2021/5/12 17:30
@@ -42,7 +44,7 @@ public interface GoodsService {
      * @date 2021/5/13 16:55
      * @description 减库存
      */
-    boolean decrStock(String goodsId);
+    String decrStockAndSavePreOrder(String goodsId, String userId, PreOrder preOrder);
 
     /**
      * @author siwen

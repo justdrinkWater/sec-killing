@@ -22,7 +22,7 @@ public interface PreOrderService {
      * @date 2021/5/12 17:24
      * @description 预下单，表示秒杀到了
      */
-    boolean preOrder(Long userId, String goodsId);
+    int preOrder(Long userId, String goodsId);
 
     /**
      * @return boolean 取消是否成功
