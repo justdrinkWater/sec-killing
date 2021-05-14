@@ -29,19 +29,18 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
     }
 
     @Override
-    public boolean hSet(String mapKey, String key, Object value) {
+    public Long hSet(String mapKey, String key, Object value) {
         byte[] str = serialize(value);
         if (str == null || str.length <= 0) {
-            return false;
+            return 0L;
         }
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
-            jedis.hset(mapKey.getBytes(), key.getBytes(), str);
+            return jedis.hset(mapKey.getBytes(), key.getBytes(), str);
         } finally {
             returnToPool(jedis);
         }
-        return true;
     }
 
     @Override

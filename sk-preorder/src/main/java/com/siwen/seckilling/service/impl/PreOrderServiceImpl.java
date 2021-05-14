@@ -6,6 +6,8 @@ import com.siwen.seckilling.constant.RedisConstant;
 import com.siwen.seckilling.service.GoodsService;
 import com.siwen.seckilling.service.PreOrderService;
 import com.siwen.seckilling.service.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,8 @@ import javax.annotation.Resource;
  **/
 @Service
 public class PreOrderServiceImpl implements PreOrderService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     private RedisService<String, Object> stringRedisService;
@@ -38,26 +42,33 @@ public class PreOrderServiceImpl implements PreOrderService {
     @Transactional
     @Override
     public boolean preOrder(Long userId, String goodsId) {
+        //判断库存是否足够
         int preStock = goodsService.getStock(goodsId);
+        logger.info(goodsId + " 当前库存为：" + preStock);
         if (preStock <= 0) {
             return false;
         }
-        //扣库存
+
+        //先生成预订单，表示用户已经购买过了，否则并发情况下会产生重复购买的情况
+        PreOrder preOrder = new PreOrder(userId, goodsId);
+        long result = stringRedisService.hSet(RedisConstant.PREFIX_GOODS_SECKILLING + goodsId, userId.toString(), preOrder);
+        if (result != 1) {
+            logger.info(userId + "已经秒杀过" + goodsId);
+            return false;
+        }
+        //如果result == 1则成功，再扣库存
         long stock = goodsService.decrStock(goodsId);
         //可能存在并发情况，扣减之后的库存  < 0，表示库存扣减失败
         if (stock < 0) {
+            //删除已经创建的预订单
+            stringRedisService.hDel(RedisConstant.PREFIX_GOODS_SECKILLING + goodsId, userId.toString());
             return false;
         }
-
-        //判断库存是否为0，更新标志位已售完
+        logger.info(goodsId + "秒杀后库存为：" + stock);
+        //判断库存是否小于等于0，更新标志位已售完
         if (stock <= 0) {
             goodsService.setSaleOver(goodsId);
         }
-
-        //生成预订单
-        PreOrder preOrder = new PreOrder(userId, goodsId);
-        stringRedisService.hSet(RedisConstant.PREFIX_GOODS_SECKILLING + goodsId, userId.toString(), preOrder);
-
         return true;
     }
 

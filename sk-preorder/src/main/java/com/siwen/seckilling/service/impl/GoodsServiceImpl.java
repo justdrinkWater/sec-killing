@@ -3,6 +3,8 @@ package com.siwen.seckilling.service.impl;
 import com.siwen.seckilling.constant.RedisConstant;
 import com.siwen.seckilling.service.GoodsService;
 import com.siwen.seckilling.service.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +23,7 @@ import javax.annotation.Resource;
  */
 @Service
 public class GoodsServiceImpl implements GoodsService {
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     private RedisService<String, Object> stringRedisService;
@@ -32,7 +35,8 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public boolean setSaleOver(String goodsId) {
-        return stringRedisService.hSet(RedisConstant.GOODS_SALE_OVER, goodsId, 1);
+        logger.info(goodsId + "已经秒杀完毕");
+        return stringRedisService.hSet(RedisConstant.GOODS_SALE_OVER, goodsId, 1) == 1;
     }
 
     @Override
@@ -56,6 +60,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public boolean setStock(String goodsId, int stock) {
-        return stringRedisService.hSet(RedisConstant.GOODS_STOCK, goodsId, stock);
+        return stringRedisService.hSet(RedisConstant.GOODS_STOCK, goodsId, stock) == 1;
     }
 }

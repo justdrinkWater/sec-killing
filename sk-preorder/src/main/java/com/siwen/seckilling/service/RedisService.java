@@ -20,7 +20,7 @@ public interface RedisService<K, V> {
      * @date 2021/5/13 09:50
      * @description hash 设置值
      */
-    boolean hSet(K mapKey, K key, V value);
+    Long hSet(K mapKey, K key, V value);
 
     /**
      * @author siwen
