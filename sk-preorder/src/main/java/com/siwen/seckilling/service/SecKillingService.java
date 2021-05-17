@@ -1,7 +1,7 @@
 package com.siwen.seckilling.service;
 
-import com.siwen.domain.User;
-import com.siwen.seckilling.vo.Result;
+import com.siwen.common.domain.User;
+import com.siwen.common.api.vo.Result;
 
 /**
  * @Author siwen

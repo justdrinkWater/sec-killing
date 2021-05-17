@@ -1,11 +1,11 @@
 package com.siwen.seckilling.service.impl;
 
-import com.siwen.domain.User;
-import com.siwen.seckilling.constant.ResultStatus;
+import com.siwen.common.domain.User;
+import com.siwen.common.constant.ResultStatus;
 import com.siwen.seckilling.mq.RabbitMQSender;
 import com.siwen.seckilling.service.PreOrderService;
 import com.siwen.seckilling.service.SecKillingService;
-import com.siwen.seckilling.vo.Result;
+import com.siwen.common.api.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

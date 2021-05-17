@@ -2,6 +2,7 @@ package com.siwen.seckilling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author siwen
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2021/05/12 21:47
  **/
 @SpringBootApplication
+@EnableDiscoveryClient
 public class PreOrderApplication {
 
     public static void main(String[] args) {

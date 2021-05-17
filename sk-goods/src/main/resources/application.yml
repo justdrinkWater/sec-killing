@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: goods-service
+
+server:
+  port: 18081
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml

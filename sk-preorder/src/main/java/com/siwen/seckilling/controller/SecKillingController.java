@@ -1,10 +1,10 @@
 package com.siwen.seckilling.controller;
 
-import com.siwen.domain.User;
-import com.siwen.seckilling.constant.ResultStatus;
-import com.siwen.seckilling.service.GoodsService;
+import com.siwen.common.api.vo.Result;
+import com.siwen.common.constant.ResultStatus;
+import com.siwen.common.domain.User;
+import com.siwen.seckilling.service.GoodsRedisService;
 import com.siwen.seckilling.service.SecKillingService;
-import com.siwen.seckilling.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class SecKillingController {
     private SecKillingService secKillingService;
 
     @Resource
-    private GoodsService goodsService;
+    private GoodsRedisService goodsRedisService;
 
     /**
      * @param user    用户信息
@@ -52,20 +52,6 @@ public class SecKillingController {
 
         //调用秒杀服务
         return secKillingService.doSecKilling(user, goodsId);
-    }
-
-    /**
-     * @author siwen
-     * @date 2021/5/13 17:07
-     * @description 设置商品库存
-     */
-    @PostMapping(value = "/set_stock")
-    @ResponseBody
-    public Result<Boolean> setStock(@RequestParam("goodsId") String goodsId, @RequestParam("stock") int stock) {
-        Result<Boolean> result = Result.buildSuccess();
-        boolean flag = goodsService.setStock(goodsId, stock);
-        result.setData(flag);
-        return result;
     }
 
 }

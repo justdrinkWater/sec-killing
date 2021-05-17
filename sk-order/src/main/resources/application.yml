@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: order-service
+
+server:
+  port: 8083
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml

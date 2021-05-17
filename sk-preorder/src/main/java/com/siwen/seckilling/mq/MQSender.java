@@ -1,6 +1,6 @@
 package com.siwen.seckilling.mq;
 
-import com.siwen.seckilling.bean.PreOrder;
+import com.siwen.common.bean.PreOrder;
 
 /**
  * @Author siwen

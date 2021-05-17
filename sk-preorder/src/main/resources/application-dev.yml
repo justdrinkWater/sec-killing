@@ -1,6 +1,10 @@
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.0.106:8848
   rabbitmq:
-    host: localhost
+    host: 192.168.0.106
     port: 5672
     username: guest
     password: guest

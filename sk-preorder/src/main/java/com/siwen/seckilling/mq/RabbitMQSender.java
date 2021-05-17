@@ -1,11 +1,10 @@
 package com.siwen.seckilling.mq;
 
-import com.siwen.domain.constant.MQConstant;
-import com.siwen.seckilling.bean.PreOrder;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import com.siwen.common.constant.MQConstant;
+import com.siwen.common.bean.PreOrder;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @Author siwen
@@ -16,11 +15,11 @@ import javax.annotation.Resource;
 public class RabbitMQSender implements MQSender {
 
 
-    @Resource
-    private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Override
     public void send(PreOrder preOrder) {
-        rabbitTemplate.convertAndSend(MQConstant.PRE_ORDER, preOrder);
+        amqpTemplate.convertAndSend(MQConstant.PRE_ORDER, preOrder);
     }
 }
