@@ -5,7 +5,7 @@ spring:
     name: goods-service
 
 server:
-  port: 18081
+  port: 8084
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml

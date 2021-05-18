@@ -1,7 +1,8 @@
 package com.siwen.seckilling.mq;
 
-import com.siwen.common.constant.MQConstant;
+import com.alibaba.fastjson.JSON;
 import com.siwen.common.bean.PreOrder;
+import com.siwen.common.constant.MQConstant;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,6 @@ public class RabbitMQSender implements MQSender {
 
     @Override
     public void send(PreOrder preOrder) {
-        amqpTemplate.convertAndSend(MQConstant.PRE_ORDER, preOrder);
+        amqpTemplate.convertAndSend(MQConstant.PRE_ORDER, JSON.toJSONString(preOrder));
     }
 }

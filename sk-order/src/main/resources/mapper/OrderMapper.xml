@@ -18,7 +18,7 @@
 
 
     <insert id="insert" parameterType="com.siwen.common.domain.Order" useGeneratedKeys="true" keyProperty="id">
-        insert into order(user_id, goods_id, goods_name, goods_count, goods_price, order_channel, status,
+        insert into orders(user_id, goods_id, goods_name, goods_count, goods_price, order_channel, status,
                           create_date)
         values (#{userId}, #{goodsId}, #{goodsName}, #{goodsCount}, #{goodsPrice}, #{orderChannel}, #{status},
                 #{createDate})

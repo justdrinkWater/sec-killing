@@ -8,4 +8,5 @@ package com.siwen.common.constant;
 public class MQConstant {
 
     public static final String PRE_ORDER = "pre_order.queue";
+
 }

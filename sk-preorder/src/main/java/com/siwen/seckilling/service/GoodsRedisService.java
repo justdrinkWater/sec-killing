@@ -21,7 +21,7 @@ public interface GoodsRedisService {
      * @date 2021/5/13 16:55
      * @description 获取库存
      */
-    int getStock(String goodsId);
+    Integer getStock(String goodsId);
 
     /**
      * @author siwen

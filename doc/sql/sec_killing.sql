@@ -41,8 +41,8 @@ CREATE TABLE `sec_killing_order` (
   UNIQUE KEY `u_uid_gid` (`user_id`,`goods_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1551 DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `order_info`;
-CREATE TABLE `order_info` (
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
   `goods_id` bigint(20) DEFAULT NULL COMMENT '商品ID',

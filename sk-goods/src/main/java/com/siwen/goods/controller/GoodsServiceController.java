@@ -22,7 +22,7 @@ public class GoodsServiceController {
     @Resource
     private GoodsService goodsService;
 
-    @GetMapping(value = "getByGoodsId")
+    @GetMapping(value = "getGoodsVoByGoodsId")
     public Result<GoodsVo> getGoodsVoByGoodsId(@RequestParam("goodsId") String goodsId) {
         Result<GoodsVo> result = Result.buildSuccess();
         GoodsVo goodsVo = goodsService.getGoodsVoByGoodsId(goodsId);

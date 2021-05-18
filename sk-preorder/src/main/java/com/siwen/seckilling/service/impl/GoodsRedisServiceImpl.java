@@ -72,12 +72,12 @@ public class GoodsRedisServiceImpl implements GoodsRedisService {
     }
 
     @Override
-    public int getStock(String goodsId) {
+    public Integer getStock(String goodsId) {
         String stock = stringRedisService.get(RedisConstant.PREFIX_GOODS_STOCK + goodsId);
         if (!StringUtils.isEmpty(stock)) {
             return Integer.parseInt(stock);
         }
-        return 0;
+        return null;
     }
 
     /**

@@ -47,12 +47,6 @@ public class PreOrderServiceImpl implements PreOrderService {
     @Transactional
     @Override
     public int preOrder(Long userId, String goodsId) {
-        //判断库存是否足够
-        int preStock = goodsRedisService.getStock(goodsId);
-        if (preStock <= 0) {
-            return 0;
-        }
-
         //先生成预订单，分布式锁，表示用户已经购买过了，否则并发情况下会产生重复购买的情况
         PreOrder preOrder = new PreOrder(userId, goodsId);
         String result = goodsRedisService.decrStockAndSavePreOrder(goodsId, userId.toString(), preOrder);

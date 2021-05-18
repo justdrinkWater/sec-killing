@@ -3,6 +3,7 @@ package com.siwen.common.api;
 import com.siwen.common.api.vo.GoodsVo;
 import com.siwen.common.api.vo.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/goods")
 public interface GoodsServiceApi {
 
-    @RequestMapping(value = "/getGoodsVoByGoodsId", method = RequestMethod.GET)
+    @GetMapping(value = "/getGoodsVoByGoodsId")
     Result<GoodsVo> getGoodsVoByGoodsId(@RequestParam("goodsId") String goodsId);
 
-    @RequestMapping(value = "/reduceStock", method = RequestMethod.GET)
+    @GetMapping(value = "/reduceStock")
     Result<Boolean> reduceStock(@RequestParam("goodsId") String goodsId);
 }
