@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @description 服务启动类
  * @date 2021/05/12 21:47
  **/
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.siwen")
 @EnableDiscoveryClient
 public class PreOrderApplication {
 

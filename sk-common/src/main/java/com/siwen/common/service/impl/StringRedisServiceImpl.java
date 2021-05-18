@@ -1,7 +1,7 @@
-package com.siwen.seckilling.service.impl;
+package com.siwen.common.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.siwen.seckilling.service.RedisService;
+import com.siwen.common.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -101,6 +101,9 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
         try {
             jedis = jedisPool.getResource();
             return jedis.get(key);
+        } catch (Exception e) {
+            logger.error("redis get获取异常", e);
+            return null;
         } finally {
             returnToPool(jedis);
         }

@@ -1,4 +1,4 @@
-package com.siwen.seckilling.config;
+package com.siwen.common.config;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -23,3 +23,17 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+nacos:
+  config:
+    serverAddr: 192.168.0.106:8848
+#redis连接配置
+redis:
+  ip: 192.168.0.106
+  port: 6379
+  password: redis
+  timeout: 3000
+  maxActive: 20
+  maxIdle: 8
+  maxWait: 1000
+  testOnBorrow: true
+  testOnReturn: true

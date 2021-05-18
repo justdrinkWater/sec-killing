@@ -9,3 +9,10 @@ server:
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
+
+nacos:
+  config:
+    dataId: redis
+    group: DEFAULT_GROUP
+redis:
+  stockKey: goods_stock

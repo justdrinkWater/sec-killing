@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @Date 2021/5/17 9:36
  * @Description
  **/
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.siwen")
 @EnableTransactionManagement
 @MapperScan("com.siwen.goods.mapper")
 @EnableDiscoveryClient

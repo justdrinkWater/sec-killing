@@ -1,4 +1,4 @@
-package com.siwen.seckilling.config;
+package com.siwen.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class JedisConfiguration {
 
     @Bean
-    public JedisPool jedisPool(com.siwen.seckilling.config.JedisPoolConfig redisConfig) {
+    public JedisPool jedisPool(com.siwen.common.config.JedisPoolConfig redisConfig) {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(redisConfig.getMaxIdle());
         poolConfig.setMaxTotal(redisConfig.getMaxActive());

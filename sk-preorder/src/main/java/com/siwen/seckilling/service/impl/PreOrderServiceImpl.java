@@ -5,7 +5,7 @@ import com.siwen.common.bean.PreOrder;
 import com.siwen.common.constant.RedisConstant;
 import com.siwen.seckilling.service.GoodsRedisService;
 import com.siwen.seckilling.service.PreOrderService;
-import com.siwen.seckilling.service.RedisService;
+import com.siwen.common.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

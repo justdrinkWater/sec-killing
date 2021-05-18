@@ -1,4 +1,4 @@
-package com.siwen.seckilling.service;
+package com.siwen.common.service;
 
 /**
  * @Author siwen
