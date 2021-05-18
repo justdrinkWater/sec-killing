@@ -3,6 +3,8 @@ spring:
     active: @activeProfile@
   application:
     name: preorder-service
+  resources:
+    static-locations: classpath:web/
 
 server:
   port: 8081
