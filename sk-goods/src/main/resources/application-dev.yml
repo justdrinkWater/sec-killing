@@ -3,9 +3,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.0.106:8848
+        server-addr: 192.168.0.107:8848
   datasource:
-    url: jdbc:mysql://192.168.0.106:3306/seckilling?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://192.168.0.107:3306/seckilling?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -25,10 +25,10 @@ spring:
     maxOpenPreparedStatements: 20
 nacos:
   config:
-    serverAddr: 192.168.0.106:8848
+    serverAddr: 192.168.0.107:8848
 #redis连接配置
 redis:
-  ip: 192.168.0.106
+  ip: 192.168.0.107
   port: 6379
   password: redis
   timeout: 3000

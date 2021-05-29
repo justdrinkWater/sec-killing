@@ -2,9 +2,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.0.106:8848
+        server-addr: 192.168.0.107:8848
   rabbitmq:
-    host: 192.168.0.106
+    host: 192.168.0.107
     port: 5672
     username: guest
     password: guest
@@ -24,7 +24,7 @@ spring:
           multiplier: 1
 #redis连接配置
 redis:
-  ip: 192.168.0.106
+  ip: 192.168.0.107
   port: 6379
   password: redis
   timeout: 3000

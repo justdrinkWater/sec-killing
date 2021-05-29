@@ -39,7 +39,7 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
     @Override
     public Long hSet(String mapKey, String key, Object value) {
         byte[] str = serialize(value);
-        if (str == null || str.length <= 0) {
+        if (str.length <= 0) {
             return 0L;
         }
         Jedis jedis = null;
@@ -54,7 +54,7 @@ public class StringRedisServiceImpl implements RedisService<String, Object> {
     @Override
     public boolean set(String key, Object value, int expire) {
         byte[] str = serialize(value);
-        if (str == null || str.length <= 0) {
+        if (str.length <= 0) {
             return false;
         }
         Jedis jedis = null;
