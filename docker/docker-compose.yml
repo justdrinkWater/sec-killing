@@ -1,0 +1,4 @@
+goods:
+  image: siwen/sk-goods
+  ports:
+    - "8084:8084"
