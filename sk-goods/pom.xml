@@ -65,7 +65,6 @@
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <dockerHost>http://192.168.0.107:2375</dockerHost>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
