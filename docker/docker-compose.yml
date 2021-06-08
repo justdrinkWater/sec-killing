@@ -1,4 +1,28 @@
-goods:
-  image: siwen/sk-goods
-  ports:
-    - "8084:8084"
+version: "3" # docker-compose 版本
+services: # 服务
+  goods-service:
+    container_name: goods-container
+    build:
+      context: .
+      dockerfile: goods_dockerfile
+    image: goods_service:v1
+    ports:
+      - "9000:9000"
+
+  preorder-service:
+    container_name: preorder-container
+    build:
+      context: .
+      dockerfile: preorder_dockerfile
+    image: preorder-service:v1
+    ports:
+      - "9001:9001"
+
+  order-service:
+    container_name: order-container
+    build:
+      context: .
+      dockerfile: order_dockerfile
+    image: order-service:v1
+    ports:
+      - "9002:9002"
