@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: @activeProfile@
   application:
     name: order-service
 

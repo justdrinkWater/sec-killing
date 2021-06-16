@@ -6,8 +6,8 @@ spring:
   rabbitmq:
     host: 192.168.0.107
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
     virtual-host: /
     listener:
       simple:
